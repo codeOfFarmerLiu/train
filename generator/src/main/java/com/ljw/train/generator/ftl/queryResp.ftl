@@ -2,6 +2,7 @@ package com.ljw.train.${module}.resp;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import lombok.Data;
 <#list typeSet as type>
 <#if type=='Date'>
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 </#if>
 </#list>
 
+@Data
 public class ${Domain}QueryResp {
 
     <#list fieldList as field>

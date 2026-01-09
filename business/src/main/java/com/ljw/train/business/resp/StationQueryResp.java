@@ -1,11 +1,11 @@
-package com.ljw.train.member.resp;
+package com.ljw.train.business.resp;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class PassengerQueryResp {
+public class StationQueryResp {
 
     /**
      * id
@@ -14,25 +14,19 @@ public class PassengerQueryResp {
     private Long id;
 
     /**
-     * 会员id
-     */
-    @JsonSerialize(using= ToStringSerializer.class)
-    private Long memberId;
-
-    /**
-     * 姓名
+     * 站名
      */
     private String name;
 
     /**
-     * 身份证
+     * 站名拼音
      */
-    private String idCard;
+    private String namePinyin;
 
     /**
-     * 旅客类型|枚举[PassengerTypeEnum]
+     * 站名拼音首字母
      */
-    private String type;
+    private String namePy;
 
     /**
      * 新增时间

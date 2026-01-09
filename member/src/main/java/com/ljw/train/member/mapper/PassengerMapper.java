@@ -3,7 +3,6 @@ package com.ljw.train.member.mapper;
 import com.ljw.train.member.domain.Passenger;
 import com.ljw.train.member.domain.PassengerExample;
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 
 public interface PassengerMapper {

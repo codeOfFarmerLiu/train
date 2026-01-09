@@ -1,4 +1,4 @@
-package com.ljw.train.member.enums;
+package com.ljw.train.member.enumssss;
 
 import java.util.ArrayList;
 import java.util.EnumSet;

@@ -195,4 +195,14 @@ public class JobController {
         LOG.info("查看定时任务结束：{}", commonResp);
         return commonResp;
     }
+
+    @RequestMapping(value = "/run")
+    public CommonResp<Object> run(@RequestBody CronJobReq cronJobReq) throws SchedulerException {
+        String jobClassName = cronJobReq.getName();
+        String jobGroupName = cronJobReq.getGroup();
+        LOG.info("手动执行任务开始：{}, {}", jobClassName, jobGroupName);
+        schedulerFactoryBean.getScheduler().triggerJob(JobKey.jobKey(jobClassName, jobGroupName));
+        return new CommonResp<>();
+    }
+
 }

@@ -20,10 +20,6 @@ public class TrainAdminController {
 
     @PostMapping("/save")
     public CommonResp<Object> save(@Valid @RequestBody TrainSaveReq req) {
-        req.setStart("成都站");
-        req.setStartPinyin("chengdu");
-        req.setEnd("邯郸站");
-        req.setEndPinyin("handan");
         trainService.save(req);
         return new CommonResp<>();
     }

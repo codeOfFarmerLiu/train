@@ -1,5 +1,6 @@
 package com.ljw.train.business.controller.admin;
 
+import com.ljw.train.business.service.TrainSeatService;
 import com.ljw.train.common.context.LoginMemberContext;
 import com.ljw.train.common.resp.CommonResp;
 import com.ljw.train.common.resp.PageResp;
@@ -19,6 +20,8 @@ public class TrainAdminController {
 
     @Resource
     private TrainService trainService;
+    @Resource
+    private TrainSeatService trainSeatService;
 
     @PostMapping("/save")
     public CommonResp<Object> save(@Valid @RequestBody TrainSaveReq req) {
@@ -44,4 +47,9 @@ public class TrainAdminController {
         return new CommonResp<>(list);
     }
 
+    @GetMapping("/gen-seat/{trainCode}")
+    public CommonResp<Object> genSeat(@PathVariable String trainCode) {
+        trainSeatService.genTrainSeat(trainCode);
+        return new CommonResp<>();
+    }
 }

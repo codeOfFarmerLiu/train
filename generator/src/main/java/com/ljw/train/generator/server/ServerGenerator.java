@@ -14,23 +14,23 @@ import java.io.IOException;
 import java.util.*;
 
 public class ServerGenerator {
-    static boolean readOnly = false;
+    static boolean readOnly = true;
+    //    static String vuePath = "web/src/views/main/";
     static String vuePath = "admin/src/views/main/";
     static String serverPath = "[module]/src/main/java/com/ljw/train/[module]/";
-    static String pomPath = "generator/pom.xml";
-    static String module = "";
-     static {
-         new File(serverPath).mkdirs();
-     }
+    static String pomPath = "generator\\pom.xml";
+    static {
+        new File(serverPath).mkdirs();
+    }
 
     public static void main(String[] args) throws Exception {
         // 获取mybatis-generator
         String generatorPath = getGeneratorPath();
         // 比如generator-config-member.xml，得到module = member
-        module = generatorPath.replace("src/main/resources/generator-config-", "").replace(".xml", "");
+        String module = generatorPath.replace("src/main/resources/generator-config-", "").replace(".xml", "");
         System.out.println("module: " + module);
         serverPath = serverPath.replace("[module]", module);
-        new File(serverPath).mkdirs();
+        // new File(servicePath).mkdirs();
         System.out.println("servicePath: " + serverPath);
 
         // 读取table节点
@@ -52,12 +52,12 @@ public class ServerGenerator {
         DbUtil.user = userId.getText();
         DbUtil.password = password.getText();
 
-        // 示例：表名 jiawa_test
-        // Domain = JiawaTest
+        // 示例：表名 ljw_test
+        // Domain = ljwTest
         String Domain = domainObjectName.getText();
-        // domain = jiawaTest
+        // domain = ljwTest
         String domain = Domain.substring(0, 1).toLowerCase() + Domain.substring(1);
-        // do_main = jiawa-test
+        // do_main = ljw-test
         String do_main = tableName.getText().replaceAll("_", "-");
         // 表中文名
         String tableNameCn = DbUtil.getTableComment(tableName.getText());
@@ -76,12 +76,13 @@ public class ServerGenerator {
         param.put("readOnly", readOnly);
         System.out.println("组装参数：" + param);
 
-        gen(Domain, param, "service", "service");
-        gen(Domain, param, "controller/admin", "adminController");
-        gen(Domain, param, "req", "saveReq");
-        gen(Domain, param, "req", "queryReq");
-        gen(Domain, param, "resp", "queryResp");
-//        genVue(do_main, param);
+//        gen(Domain, param, "service", "service");
+//        gen(Domain, param, "controller/admin", "adminController");
+////        gen(Domain, param, "controller", "controller");
+//        gen(Domain, param, "req", "saveReq");
+//        gen(Domain, param, "req", "queryReq");
+//        gen(Domain, param, "resp", "queryResp");
+        genVue(do_main, param);
     }
 
     private static void gen(String Domain, Map<String, Object> param, String packageName, String target) throws IOException, TemplateException {
@@ -96,8 +97,8 @@ public class ServerGenerator {
 
     private static void genVue(String do_main, Map<String, Object> param) throws IOException, TemplateException {
         FreemarkerUtil.initConfig("vue.ftl");
-        new File(vuePath + module).mkdirs();
-        String fileName = vuePath + module + "/" + do_main + ".vue";
+        new File(vuePath).mkdirs();
+        String fileName = vuePath + do_main + ".vue";
         System.out.println("开始生成：" + fileName);
         FreemarkerUtil.generator(fileName, param);
     }

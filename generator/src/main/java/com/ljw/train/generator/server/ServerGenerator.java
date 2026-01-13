@@ -1,4 +1,4 @@
-package com.ljw.train.generator.gen;
+package com.ljw.train.generator.server;
 
 import com.ljw.train.generator.util.DbUtil;
 import com.ljw.train.generator.util.Field;
@@ -19,15 +19,16 @@ public class ServerGenerator {
     static String vuePath = "admin/src/views/main/";
     static String serverPath = "[module]/src/main/java/com/ljw/train/[module]/";
     static String pomPath = "generator\\pom.xml";
-//    static {
-//        new File(serverPath).mkdirs();
-//    }
+    static String module = "";
+    static {
+        new File(serverPath).mkdirs();
+    }
 
     public static void main(String[] args) throws Exception {
         // 获取mybatis-generator
         String generatorPath = getGeneratorPath();
         // 比如generator-config-member.xml，得到module = member
-        String module = generatorPath.replace("src/main/resources/generator-config-", "").replace(".xml", "");
+        module = generatorPath.replace("src/main/resources/generator-config-", "").replace(".xml", "");
         System.out.println("module: " + module);
         serverPath = serverPath.replace("[module]", module);
         // new File(servicePath).mkdirs();
@@ -76,13 +77,13 @@ public class ServerGenerator {
         param.put("readOnly", readOnly);
         System.out.println("组装参数：" + param);
 
-//        gen(Domain, param, "service", "service");
-//        gen(Domain, param, "controller/admin", "adminController");
-////        gen(Domain, param, "controller", "controller");
-//        gen(Domain, param, "req", "saveReq");
-//        gen(Domain, param, "req", "queryReq");
-//        gen(Domain, param, "resp", "queryResp");
-        genVue(do_main, param);
+        gen(Domain, param, "service", "service");
+        gen(Domain, param, "controller/admin", "adminController");
+//        gen(Domain, param, "controller", "controller");
+        gen(Domain, param, "req", "saveReq");
+        gen(Domain, param, "req", "queryReq");
+        gen(Domain, param, "resp", "queryResp");
+//        genVue(do_main, param);
     }
 
     private static void gen(String Domain, Map<String, Object> param, String packageName, String target) throws IOException, TemplateException {
@@ -97,8 +98,8 @@ public class ServerGenerator {
 
     private static void genVue(String do_main, Map<String, Object> param) throws IOException, TemplateException {
         FreemarkerUtil.initConfig("vue.ftl");
-        new File(vuePath).mkdirs();
-        String fileName = vuePath + do_main + ".vue";
+        new File(vuePath + module).mkdirs();
+        String fileName = vuePath + module + "/" + do_main + ".vue";
         System.out.println("开始生成：" + fileName);
         FreemarkerUtil.generator(fileName, param);
     }

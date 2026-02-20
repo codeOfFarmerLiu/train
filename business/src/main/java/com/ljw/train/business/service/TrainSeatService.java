@@ -79,7 +79,7 @@ public class TrainSeatService {
         trainSeatMapper.deleteByPrimaryKey(id);
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void genTrainSeat(String trainCode) {
         DateTime now = DateTime.now();
         // 清空当前车次下的所有的座位记录

@@ -108,6 +108,7 @@
 import {defineComponent, ref, onMounted, watch, computed} from 'vue';
 import axios from "axios";
 import {notification} from "ant-design-vue";
+import router from "@/router";
 
 export default defineComponent({
   name: "order-view",
@@ -321,6 +322,8 @@ export default defineComponent({
         let data = response.data;
         if (data.success) {
           notification.success({description: "下单成功！"});
+          visible.value = false;
+          router.push({path: 'ticket'});
         } else {
           notification.error({description: data.message});
         }

@@ -192,7 +192,7 @@ public class ConfirmOrderService {
         // 余票详情表修改余票；
         // 为会员增加购票记录
         // 更新确认订单为成功
-        afterConfirmOrderService.afterDoConfirm(dailyTrainTicket,finalSeatList);
+        afterConfirmOrderService.afterDoConfirm(dailyTrainTicket, finalSeatList, tickets, confirmOrder);
 
 
 
@@ -250,6 +250,8 @@ public class ConfirmOrderService {
                     LOG.info("选中座位");
                     getSeatList.add(dailyTrainSeat);
                 } else {
+                    //todo 有bug：如果只有一个车厢，并且遍历到最后一个座位还没有合适的座位的时候，会直接跳出这个循环
+                    //todo 会导致最终选座：[] 最终选座为空 也会显示下单成功 但是座位余票数量不会减少
                     continue;
                 }
 

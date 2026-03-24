@@ -3,6 +3,7 @@ package com.ljw.train.business;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 
@@ -14,6 +15,7 @@ import org.springframework.core.env.Environment;
 @SpringBootApplication
 @ComponentScan("com.ljw")
 @MapperScan("com.ljw.train.*.mapper")
+@EnableFeignClients("com.ljw.train.business.feign")
 public class BusinessApplication {
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(BusinessApplication.class);

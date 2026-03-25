@@ -3,12 +3,14 @@ package com.ljw.train.business.resp;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
+
+import java.io.Serializable;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.math.BigDecimal;
 
 @Data
-public class DailyTrainTicketQueryResp {
+public class DailyTrainTicketQueryResp implements Serializable {
 
     /**
      * id
